@@ -87,7 +87,7 @@ let LunaPropertys = {
       [":after", [["content", "'test'"], ["color", "blue"],]],
     ]
   }
-};
+};//テスト
 
 function LunaProperty() {
   return Object.assign(
@@ -112,7 +112,7 @@ const Nova = {
       styleElement.remove();
     }
   },
-  allset() {},
+  allset() { },
   credit() {
     console.log("%c Dev: ame.x / @macl2189 / Join us : liberluna.github.io",
       "color:white; background-color: #ff0000; padding:2px 4px; border-radius:5px;");
@@ -120,9 +120,35 @@ const Nova = {
 };
 
 const Luna = {
-
+  Set: function (prop, value, key) {
+    UserProperty[prop][key] = value;
+  },
+  powerSet: function (obj) {
+    UserProperty = obj;
+  },
+  clear: function () {
+    UserProperty = {};
+  },
+  Add: function (prop, value) {
+    UserProperty[prop] = value;
+  },
+  Remove: function (prop) {
+    delete UserProperty[prop];
+  },
 } //CSS Obejectを操作する為のmathods
 
 window.LunaNova = true;
 const lunaNova = new LunaNova();
 Nova.allset();
+
+/*
+  予約語
+  UserProperty
+  LunaPropertys
+  LunaProperty
+  Nova
+  Luna
+
+  追加 = json of 
+  methods
+*/
