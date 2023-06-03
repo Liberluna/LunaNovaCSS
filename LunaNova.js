@@ -28,30 +28,31 @@ class LunaNova {
     Nova.RemoveStyle();
 
     const existingClasses = new Set();
-    const documentElement = document.querySelectorAll("*");
+    const documentElements = document.querySelectorAll("*");
 
-    documentElement.forEach((element) => {
+    for (const element of documentElements) {
       const elementClassList = element.classList;
       if (elementClassList.length > 0) {
-        elementClassList.forEach((className) => {
+        for (const className of elementClassList) {
           existingClasses.add(className);
-        });
+        }
       }
-    });
+    }
 
     const processedClasses = new Set();
 
-    existingClasses.forEach((Class) => {
-      if (LunaProperty[Class]) {
+    for (const Class of existingClasses) {
+      if (LunaProperty()[Class]) {
+        const properties = LunaProperty()[Class];
         Nova.LunaAdd(`.${Class}{`);
-        for (const [property, value] of LunaProperty[Class]["self"]) {
+        for (const [property, value] of properties.self) {
           Nova.LunaAdd(`${property}:${value};`);
         }
         Nova.LunaAdd("}");
 
-        for (const [pseudo, properties] of LunaProperty[Class]["pse"]) {
+        for (const [pseudo, props] of properties.pse) {
           Nova.LunaAdd(`.${Class}${pseudo}{`);
-          for (const [property, value] of properties) {
+          for (const [property, value] of props) {
             Nova.LunaAdd(`${property}:${value};`);
           }
           Nova.LunaAdd("}");
@@ -59,26 +60,40 @@ class LunaNova {
 
         processedClasses.add(Class);
       }
-    });
+    }
 
     const unusedClasses = new Set([...processedClasses].filter((c) => !existingClasses.has(c)));
 
-    unusedClasses.forEach((Class) => {
+    for (const Class of unusedClasses) {
       Nova.LunaAdd(`.${Class}{display:none;}`);
-    });
+    }
 
     Nova.DeployStyle();
   }
 }
 
-const LunaProperty = {
+var UserProperty = {};
+
+let LunaPropertys = {
   test_luna: {
     self: [['color', 'red'], ['font-size', '20px']],
     pse: [
       [":after", [["content", "'test'"], ["color", "red"],]],
     ]
+  },
+  test_luna2: {
+    self: [['color', 'blue'], ['font-size', '15px']],
+    pse: [
+      [":after", [["content", "'test'"], ["color", "blue"],]],
+    ]
   }
 };
+
+function LunaProperty() {
+  return Object.assign(
+    UserProperty, LunaPropertys
+  );
+}
 
 const Nova = {
   LunaDefault: "body {margin:0;} *,*::before,*::after {box-sizing: border-box;} ",
@@ -87,17 +102,23 @@ const Nova = {
     this.LunaStyle += css;
   },
   DeployStyle() {
-    let style = `<style id="lunaNova">${this.LunaDefault} ${this.LunaStyle}</style>`;
-    document.head.innerHTML += style;
+    const style = `<style id="lunaNova">${this.LunaDefault} ${this.LunaStyle}</style>`;
+    document.head.insertAdjacentHTML('beforeend', style);
   },
   RemoveStyle() {
-    this.LunaStyle = ""; // スタイルをリセットする
+    this.LunaStyle = "";
     const styleElement = document.querySelector("#lunaNova");
     if (styleElement) {
       styleElement.remove();
     }
+  },
+  allset() {},
+  credit() {
+    console.log("%c Dev: ame.x / @macl2189 / Join us : liberluna.github.io",
+      "color:white; background-color: #ff0000; padding:2px 4px; border-radius:5px;");
   }
 };
 
 window.LunaNova = true;
 const lunaNova = new LunaNova();
+Nova.allset();
