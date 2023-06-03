@@ -119,6 +119,10 @@ const Nova = {
   }
 };
 
+const Luna = {
+
+} //CSS Obejectを操作する為のmathods
+
 window.LunaNova = true;
 const lunaNova = new LunaNova();
 Nova.allset();
