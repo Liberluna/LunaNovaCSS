@@ -5,7 +5,12 @@ UserProperty = {
             ["background-color", "blue"]
         ],
         pse: [
-          [":after", [["content", "'test'"], ["color", "red"],]],
+            [":after",
+                [
+                    ["content", "'test'"],
+                    ["color", "red"],
+                ]
+            ],
         ]
     }
 }
