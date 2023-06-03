@@ -1,2 +1,4 @@
 # LunaNovaCSS
-LunaNovaCSS 近未来的なサイトを構築する、CSSフレームワーク
+LunaNovaCSS 近未来的なデザインを構築するCSSフレームワーク
+及び動的にオブジェクトをCSSに変換するフレームワーク
+他のCSSフレームワークとの併用が可能です。
