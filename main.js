@@ -1,5 +1,5 @@
 UserProperty = {
-    nav_box: {
+    "nav-box": {
         self: [
             ["border", "1px solid black"],
             ["background-color", "blue"]
